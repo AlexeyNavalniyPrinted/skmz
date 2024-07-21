@@ -22,3 +22,8 @@ matrix:
       script: npm run test --no-watch --no-progress --browsers=ChromeHeadless
       after_success:
         - bash <(curl -s https://codecov.io/bash)
+    - services: docker
+      before_install:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker build -t alex23451234/skmz-backend:latest -t alex23451234/skmz-backend:$TRAVIS_COMMIT -f .\backend.Dockerfile . --push
+        - docker build -t alex23451234/skmz-frontend:latest -t alex23451234/skmz-frontend:$TRAVIS_COMMIT -f .\frontend.Dockerfile . --push
