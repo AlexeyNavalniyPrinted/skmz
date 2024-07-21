@@ -1,8 +1,17 @@
 FROM node:12.14 AS JS_BUILD
-COPY webapp /webapp
 WORKDIR webapp
+COPY webapp .
 RUN npm install && npm run build --prod
 
 FROM alpine:3.11
-COPY --from=JS_BUILD /webapp/build* ./webapp/
-CMD ./server
+EXPOSE 3000
+
+WORKDIR webapp
+
+COPY --from=JS_BUILD /webapp/build* .
+
+RUN apk add --no-cache shadow && useradd usr -u 1000 --user-group && chown usr:usr .
+
+USER usr
+
+CMD .
