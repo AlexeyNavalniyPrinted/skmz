@@ -4,10 +4,10 @@ WORKDIR /server
 RUN apk add build-base
 RUN go build -o /go/bin/server
 
-FROM alpine:3.11
+FROM alpine:3.11 AS RUNTIME
 EXPOSE 8080
 
-RUN apk add --no-cache shadow && useradd usr -u 1000 --user-group
+RUN apk add --no-cache shadow && useradd usr -u 10001 --user-group
 
 WORKDIR /server
 

@@ -5,9 +5,9 @@ backendProd:
         drop:
         - ALL
       readOnlyRootFilesystem: true
-      runAsGroup: 1000
+      runAsGroup: 10001
       runAsNonRoot: true
-      runAsUser: 1000
+      runAsUser: 10001
     image:
       repository: alex23451234/skmz-backend-prod
       tag: latest
@@ -21,13 +21,7 @@ backendProdSvc:
 frontendProd:
   frontendProd:
     containerSecurityContext:
-      capabilities:
-        drop:
-        - ALL
-      readOnlyRootFilesystem: true
-      runAsGroup: 1000
-      runAsNonRoot: true
-      runAsUser: 1000
+      runAsNonRoot: false
     image:
       repository: alex23451234/skmz-frontend-prod
       tag: latest
@@ -35,8 +29,8 @@ frontendProd:
   replicas: 3
 frontendProdSvc:
   ports:
-  - port: 3000
-    targetPort: 3000
+  - port: 80
+    targetPort: 80
   type: ClusterIP
 kubernetesClusterDomain: cluster.local
 
