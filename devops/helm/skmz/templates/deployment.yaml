@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "skmz.fullname" . }}-backend
+  labels:
+    app: backend
+  {{- include "skmz.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.backendProd.replicas }}
+  selector:
+    matchLabels:
+      app: backend
+    {{- include "skmz.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: backend
+      {{- include "skmz.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - env:
+        - name: KUBERNETES_CLUSTER_DOMAIN
+          value: {{ quote .Values.kubernetesClusterDomain }}
+        {{- toYaml .Values.env | nindent 8 }}
+        image: {{ .Values.backendProd.backendProd.image.repository }}:{{ .Values.backendProd.backendProd.image.tag
+          | default .Chart.AppVersion }}
+        imagePullPolicy: {{ .Values.backendProd.backendProd.imagePullPolicy }}
+        name: backend
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources: {}
+        securityContext: {{- toYaml .Values.backendProd.backendProd.containerSecurityContext
+          | nindent 10 }}
+      restartPolicy: Always
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "skmz.fullname" . }}-frontend
+  labels:
+    app: frontend
+  {{- include "skmz.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.frontendProd.replicas }}
+  selector:
+    matchLabels:
+      app: frontend
+    {{- include "skmz.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: frontend
+      {{- include "skmz.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - env:
+        - name: KUBERNETES_CLUSTER_DOMAIN
+          value: {{ quote .Values.kubernetesClusterDomain }}
+        image: {{ .Values.frontendProd.frontendProd.image.repository }}:{{ .Values.frontendProd.frontendProd.image.tag
+          | default .Chart.AppVersion }}
+        imagePullPolicy: {{ .Values.frontendProd.frontendProd.imagePullPolicy }}
+        name: frontend
+        ports:
+        - containerPort: 3000
+          protocol: TCP
+        resources: {}
+        securityContext: {{- toYaml .Values.frontendProd.frontendProd.containerSecurityContext
+          | nindent 10 }}
+      restartPolicy: Always

@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "skmz.fullname" . }}-frontend-svc
+  labels:
+  {{- include "skmz.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.frontendProdSvc.type }}
+  selector:
+    app: frontend-prod
+  {{- include "skmz.selectorLabels" . | nindent 4 }}
+  ports:
+	{{- .Values.frontendProdSvc.ports | toYaml | nindent 2 }}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "skmz.fullname" . }}-backend-svc
+  labels:
+  {{- include "skmz.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.backendProdSvc.type }}
+  selector:
+    app: backend-prod
+  {{- include "skmz.selectorLabels" . | nindent 4 }}
+  ports:
+	{{- .Values.backendProdSvc.ports | toYaml | nindent 2 }}

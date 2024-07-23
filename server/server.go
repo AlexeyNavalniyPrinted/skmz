@@ -41,7 +41,7 @@ func gqlHandler(db db.DB) http.HandlerFunc {
 }
 
 func clientOptions() *options.ClientOptions {
-	host := "db"
+	host := "prod-mongodb.default.svc.local.cluster"
 	if os.Getenv("profile") != "prod" {
 		host = "localhost"
 	}
