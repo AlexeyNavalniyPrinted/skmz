@@ -34,6 +34,10 @@ frontendProdSvc:
   type: ClusterIP
 kubernetesClusterDomain: cluster.local
 
+env:
+  - name: profile
+    value: prod
+
 mongodb:
   tls:
     enabled: true

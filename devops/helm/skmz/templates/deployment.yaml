@@ -21,6 +21,7 @@ spec:
       - env:
         - name: KUBERNETES_CLUSTER_DOMAIN
           value: {{ quote .Values.kubernetesClusterDomain }}
+        {{- toYaml .Values.env | nindent 8 }}
         image: {{ .Values.backendProd.backendProd.image.repository }}:{{ .Values.backendProd.backendProd.image.tag
           | default .Chart.AppVersion }}
         imagePullPolicy: {{ .Values.backendProd.backendProd.imagePullPolicy }}
