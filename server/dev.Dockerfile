@@ -14,6 +14,7 @@ RUN apk add --no-cache shadow && useradd usr -u 10001 --user-group
 WORKDIR /server
 
 COPY --from=GO_BUILD /go/bin/server ./
+COPY webapp .
 
 RUN chown usr:usr /server
 
