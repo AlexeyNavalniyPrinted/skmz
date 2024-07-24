@@ -1,4 +1,5 @@
-version: "3.7"
+# docker-compose -f docker-compose-dev.yml up
+
 services:
   dev_db:
     image: mongo:4.2.2
@@ -9,3 +10,13 @@ services:
       - 27017:27017
     volumes:
       - ./server/db/mongo.init:/docker-entrypoint-initdb.d/mongo-init.js
+  frontend:
+    build:
+      dockerfile: ./webapp/Dockerfile
+    ports:
+      - "3000:80"
+  backend:
+    build:
+      dockerfile: ./server/dev.Dockerfile
+    ports:
+      - "8080:8080"

@@ -2,5 +2,8 @@ dependencies:
 - name: mongodb
   repository: oci://registry-1.docker.io/bitnamicharts
   version: 15.6.14
-digest: sha256:2c81ceca2b438726fd2762c622b256387114db727db7ab3283f5e32cdd631643
-generated: "2024-07-21T14:34:31.7969611+03:00"
+- name: ingress-nginx
+  repository: https://kubernetes.github.io/ingress-nginx
+  version: 4.11.1
+digest: sha256:297e5f8a8b55520c5c9c584a2e757777abb361e96f2e1792a3c73989ac74ab79
+generated: "2024-07-23T19:01:49.0922292+03:00"
