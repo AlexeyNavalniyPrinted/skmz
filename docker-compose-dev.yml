@@ -13,10 +13,12 @@ services:
   frontend:
     build:
       dockerfile: ./webapp/Dockerfile
+    # Comment ports if not necessary
     ports:
       - "3000:80"
   backend:
     build:
       dockerfile: ./server/dev.Dockerfile
+    # Comment ports if not necessary
     ports:
       - "8080:8080"
