@@ -13,18 +13,15 @@ side. **MongoDB** is used as a database.
 
 ## System requirements
 You need to have [Docker](https://www.docker.com) and
-[Docker Compose](https://docs.docker.com/compose/)
-installed in oder to build and run the project. No
-additional tools required.
+[Docker Compose](https://docs.docker.com/compose/) 
+installed in oder to build and run the project for local development.
 
-## How to build and run in production mode
+For deployment you need [kubectl](https://kubernetes.io/releases/download/), [helm](https://github.com/helm/helm/releases) and kubernetes cluster
+## How to deploy cluster
 Perform 
 ```sh
-docker-compose up
+helm install ./devops/helm/skmz
 ```
-Access the application via http://localhost:8080.
-Access the GraphQL Playground using 
-http://localhost:8080/playground.
 
 ## How to develop locally
 
